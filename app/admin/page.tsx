@@ -45,6 +45,8 @@ export default function AdminPage() {
   const [selectedLevel, setSelectedLevel] = useState("")
   const [storageWarning, setStorageWarning] = useState(false)
   const [showPricingEditor, setShowPricingEditor] = useState(false)
+  const [inspectingUser, setInspectingUser] = useState<null | { id: string | number; name: string }>(null)
+  const [showUserJourney, setShowUserJourney] = useState(false)
 
   // Advanced Statistics
   const stats = {
@@ -199,22 +201,24 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Admin Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+      {/* Admin Header - Premium Glass */}
+      <div className="sticky top-0 z-40 glass-card border-b border-blue-200/20 backdrop-blur-3xl shadow-2xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Edusanna Admin Dashboard</h1>
-              <p className="text-sm text-gray-600">Advanced Platform Management System</p>
+              <h1 className="text-4xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                Edusanna Admin Control Center
+              </h1>
+              <p className="text-sm text-blue-200 mt-1">🛡️ Advanced Platform Management with AI-Powered Insights</p>
             </div>
-            <div className="flex gap-2">
-              <Button variant="outline" onClick={handleDownloadReport}>
+            <div className="flex gap-3">
+              <Button variant="outline" onClick={handleDownloadReport} className="bg-white/10 border-white/20 text-white hover:bg-white/20">
                 <Download className="w-4 h-4 mr-2" />
                 Export Report
               </Button>
               <Link href="/">
-                <Button variant="ghost">
+                <Button className="bg-red-500/80 hover:bg-red-600 text-white">
                   <LogOut className="w-4 h-4 mr-2" />
                   Logout
                 </Button>
@@ -224,60 +228,52 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Key Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <Card className="border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100">
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-sm text-blue-600 font-medium">Total Users</p>
-                  <p className="text-3xl font-bold text-blue-900 mt-1">{stats.totalUsers.toLocaleString()}</p>
-                  <p className="text-xs text-blue-600 mt-2">↑ {stats.activeUsers} active today</p>
-                </div>
-                <Users className="w-8 h-8 text-blue-600 opacity-20" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+        {/* Key Statistics Cards - Premium Glass */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="glass-card p-6 border-blue-300/30 hover:border-blue-300/50 transition-all hover:shadow-2xl">
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="text-sm text-blue-300 font-semibold">Total Users</p>
+                <p className="text-4xl font-black text-white mt-2">{stats.totalUsers.toLocaleString()}</p>
+                <p className="text-xs text-blue-300/80 mt-3">↑ {stats.activeUsers} active today</p>
               </div>
-            </CardContent>
-          </Card>
+              <div className="icon-badge"><Users className="w-6 h-6 text-blue-300" /></div>
+            </div>
+          </div>
 
-          <Card className="border-green-200 bg-gradient-to-br from-green-50 to-green-100">
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-sm text-green-600 font-medium">Courses Active</p>
-                  <p className="text-3xl font-bold text-green-900 mt-1">{stats.activeCourses}</p>
-                  <p className="text-xs text-green-600 mt-2">Across all levels</p>
-                </div>
-                <BookOpen className="w-8 h-8 text-green-600 opacity-20" />
+          <div className="glass-card p-6 border-green-300/30 hover:border-green-300/50 transition-all hover:shadow-2xl">
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="text-sm text-green-300 font-semibold">Courses Active</p>
+                <p className="text-4xl font-black text-white mt-2">{stats.activeCourses}</p>
+                <p className="text-xs text-green-300/80 mt-3">Across all levels</p>
               </div>
-            </CardContent>
-          </Card>
+              <div className="icon-badge"><BookText className="w-6 h-6 text-green-300" /></div>
+            </div>
+          </div>
 
-          <Card className="border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100">
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-sm text-purple-600 font-medium">Completion Rate</p>
-                  <p className="text-3xl font-bold text-purple-900 mt-1">{stats.completionRate}%</p>
-                  <p className="text-xs text-purple-600 mt-2">Course completion</p>
-                </div>
-                <TrendingUp className="w-8 h-8 text-purple-600 opacity-20" />
+          <div className="glass-card p-6 border-purple-300/30 hover:border-purple-300/50 transition-all hover:shadow-2xl">
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="text-sm text-purple-300 font-semibold">Completion Rate</p>
+                <p className="text-4xl font-black text-white mt-2">{stats.completionRate}%</p>
+                <p className="text-xs text-purple-300/80 mt-3">Course completion</p>
               </div>
-            </CardContent>
-          </Card>
+              <div className="icon-badge"><TrendingUp className="w-6 h-6 text-purple-300" /></div>
+            </div>
+          </div>
 
-          <Card className="border-amber-200 bg-gradient-to-br from-amber-50 to-amber-100">
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-sm text-amber-600 font-medium">Total Enrollments</p>
-                  <p className="text-3xl font-bold text-amber-900 mt-1">{stats.totalEnrollments.toLocaleString()}</p>
-                  <p className="text-xs text-amber-600 mt-2">Certificates + Diplomas</p>
-                </div>
-                <Award className="w-8 h-8 text-amber-600 opacity-20" />
+          <div className="glass-card p-6 border-amber-300/30 hover:border-amber-300/50 transition-all hover:shadow-2xl">
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="text-sm text-amber-300 font-semibold">Total Enrollments</p>
+                <p className="text-4xl font-black text-white mt-2">{stats.totalEnrollments.toLocaleString()}</p>
+                <p className="text-xs text-amber-300/80 mt-3">Certificates + Diplomas</p>
               </div>
-            </CardContent>
-          </Card>
+              <div className="icon-badge"><Award className="w-6 h-6 text-amber-300" /></div>
+            </div>
+          </div>
         </div>
 
         {/* Storage & System Health */}
@@ -359,14 +355,64 @@ export default function AdminPage() {
           </Card>
         </div>
 
+        {/* User Inspection Modal */}
+        {inspectingUser && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="glass-card w-full max-w-3xl p-8 border-purple-300/30">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-white">🔍 Inspecting User Journey</h2>
+                <button onClick={() => setInspectingUser(null)} className="text-blue-300 hover:text-blue-200 text-2xl">×</button>
+              </div>
+              <div className="space-y-6">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+                  <h3 className="text-white font-bold mb-4">User: {inspectingUser.name}</h3>
+                  <div className="grid grid-cols-2 gap-4 text-white text-sm">
+                    <div><span className="text-blue-300">Email:</span> user@example.com</div>
+                    <div><span className="text-blue-300">Join Date:</span> Jan 15, 2025</div>
+                    <div><span className="text-blue-300">Enrollments:</span> 5</div>
+                    <div><span className="text-blue-300">Completions:</span> 2</div>
+                  </div>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+                  <h4 className="text-blue-300 font-bold mb-4">📚 Learning Journey</h4>
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3 pb-4 border-b border-white/10">
+                      <span className="text-green-400 text-lg">✓</span>
+                      <div className="flex-1">
+                        <p className="text-white font-medium">Web Development - Diploma</p>
+                        <p className="text-blue-300 text-sm">Completed: Jan 18, 2025 | Score: 94%</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3 pb-4 border-b border-white/10">
+                      <span className="text-green-400 text-lg">✓</span>
+                      <div className="flex-1">
+                        <p className="text-white font-medium">Digital Marketing - Certificate</p>
+                        <p className="text-blue-300 text-sm">Completed: Jan 17, 2025 | Score: 88%</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="text-yellow-400 text-lg">⏳</span>
+                      <div className="flex-1">
+                        <p className="text-white font-medium">Data Analysis - Diploma</p>
+                        <p className="text-blue-300 text-sm">In Progress: 65% complete | Last accessed: Today</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Main Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-5 w-full mb-8">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="completions">Completions</TabsTrigger>
-            <TabsTrigger value="users">Users</TabsTrigger>
-            <TabsTrigger value="courses">Courses</TabsTrigger>
-            <TabsTrigger value="feedback">Feedback</TabsTrigger>
+          <TabsList className="grid grid-cols-6 w-full mb-8 glass-card border-blue-300/20">
+            <TabsTrigger value="overview" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">Overview</TabsTrigger>
+            <TabsTrigger value="completions" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">Completions</TabsTrigger>
+            <TabsTrigger value="users" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">Users</TabsTrigger>
+            <TabsTrigger value="courses" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">Courses</TabsTrigger>
+            <TabsTrigger value="feedback" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">Feedback</TabsTrigger>
+            <TabsTrigger value="inspection" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">🔍 Inspection</TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
@@ -639,14 +685,104 @@ export default function AdminPage() {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* User Journey Inspection Tab */}
+          <TabsContent value="inspection" className="space-y-6">
+            <Card className="glass-card-light border-purple-300/30">
+              <CardHeader>
+                <CardTitle className="text-white">🔍 User Journey Inspection Tool</CardTitle>
+                <p className="text-sm text-blue-300 mt-2">Inspect any user's complete learning journey - view all stages they go through</p>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {/* Inspection Controls */}
+                  <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+                    <h3 className="text-white font-bold mb-4">Select User to Inspect</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <Input 
+                        placeholder="Search by name or email..." 
+                        className="bg-white/10 border-white/20 text-white placeholder-white/50"
+                      />
+                      <select className="bg-white/10 border border-white/20 text-white rounded-lg px-4 py-2">
+                        <option>All Users</option>
+                        <option>Active Users</option>
+                        <option>Completed Courses</option>
+                        <option>In Progress</option>
+                      </select>
+                      <Button className="premium-button">🔍 Search Users</Button>
+                    </div>
+                  </div>
+
+                  {/* User List for Inspection */}
+                  <div className="space-y-3">
+                    {userManagement.map((user) => (
+                      <div 
+                        key={user.id} 
+                        onClick={() => setInspectingUser({ id: user.id, name: user.name })}
+                        className="glass-card p-4 border-blue-300/20 hover:border-blue-300/50 cursor-pointer transform hover:scale-102 transition-all"
+                      >
+                        <div className="flex justify-between items-center">
+                          <div className="flex-1">
+                            <p className="text-white font-bold">{user.name}</p>
+                            <p className="text-blue-300 text-sm">{user.email} • {user.country}</p>
+                            <div className="flex gap-3 mt-2 text-xs text-blue-200">
+                              <span>📚 {user.enrollments} Enrollments</span>
+                              <span>✓ {user.completions} Completed</span>
+                              <span>📅 Joined {user.joinDate}</span>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <Badge className="bg-green-500/30 text-green-300 mb-2">Active</Badge>
+                            <Button size="sm" className="bg-blue-600/50 hover:bg-blue-600 text-white">
+                              <Eye className="w-4 h-4 mr-1" />
+                              Inspect
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Journey Stages Documentation */}
+                  <div className="bg-white/5 border border-white/10 rounded-xl p-6 mt-8">
+                    <h3 className="text-white font-bold mb-4">📖 User Journey Stages</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div className="border-l-4 border-blue-400 pl-4">
+                        <p className="text-white font-semibold">1. Authentication Stage</p>
+                        <p className="text-blue-200 text-xs mt-1">Sign up → Email verification → Profile setup</p>
+                      </div>
+                      <div className="border-l-4 border-purple-400 pl-4">
+                        <p className="text-white font-semibold">2. Discovery Stage</p>
+                        <p className="text-blue-200 text-xs mt-1">Browse courses → View details → Filter by level</p>
+                      </div>
+                      <div className="border-l-4 border-pink-400 pl-4">
+                        <p className="text-white font-semibold">3. Enrollment Stage</p>
+                        <p className="text-blue-200 text-xs mt-1">Select level → Accept terms → Enroll</p>
+                      </div>
+                      <div className="border-l-4 border-yellow-400 pl-4">
+                        <p className="text-white font-semibold">4. Learning Stage</p>
+                        <p className="text-blue-200 text-xs mt-1">Module progress → Quiz completion → Progress tracking</p>
+                      </div>
+                      <div className="border-l-4 border-green-400 pl-4">
+                        <p className="text-white font-semibold">5. Assessment Stage</p>
+                        <p className="text-blue-200 text-xs mt-1">Final quiz → Score calculation → Feedback</p>
+                      </div>
+                      <div className="border-l-4 border-red-400 pl-4">
+                        <p className="text-white font-semibold">6. Certification Stage</p>
+                        <p className="text-blue-200 text-xs mt-1">Request cert → Verification → Issue certificate</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
 
         {/* Admin Manual */}
-        <Card className="mt-8 border-blue-200 bg-blue-50">
-          <CardHeader>
-            <CardTitle className="text-blue-900">Admin Dashboard User Manual</CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm text-blue-900 space-y-3">
+        <div className="glass-card p-8 mt-12 border-blue-300/30">
+          <h2 className="text-2xl font-bold text-white mb-6">📘 Admin Dashboard User Manual</h2>
+          <div className="text-sm text-blue-200 space-y-3">
             <div>
               <h4 className="font-semibold mb-2">Overview Tab</h4>
               <p>View system status and quick access to platform settings, notifications, and analytics.</p>
@@ -668,11 +804,11 @@ export default function AdminPage() {
               <p>Review user ratings and feedback. Edit or delete ratings as needed. Monitor course quality through user reviews.</p>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Storage Monitor</h4>
-              <p>Track database usage and record counts. Optimized for free tier Supabase. Alerts when storage exceeds 80%.</p>
+              <h4 className="font-semibold text-white mb-2">🗄️ Storage Monitor</h4>
+              <p className="text-blue-200">Track database usage and record counts. Optimized for free tier Supabase. Alerts when storage exceeds 80%.</p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Pricing Editor Modal */}
         <AdminPricingEditor isOpen={showPricingEditor} onClose={() => setShowPricingEditor(false)} />

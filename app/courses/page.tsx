@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { BookOpen, Search, GraduationCap, Award, DollarSign, Clock, Filter, ArrowRight, ArrowLeft } from "lucide-react"
+import { BookOpen, Search, GraduationCap, Award, Clock, Filter, ArrowRight, ArrowLeft } from "lucide-react"
 import { courseCatalog, getAllLetters, courseCategories } from "@/lib/course-catalog"
 
 export default function CoursesPage() {
@@ -26,14 +26,14 @@ export default function CoursesPage() {
   })
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       {/* Navigation */}
-      <nav className="glass-card fixed top-0 w-full z-50 border-b border-gray-200/50">
+      <nav className="glass-card fixed top-0 w-full z-50 border-b border-blue-300/20 backdrop-blur-3xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-6">
-              <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition">
-                <div className="w-10 h-10 rounded-full overflow-hidden shadow-md">
+              <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition transform hover:scale-105">
+                <div className="w-10 h-10 rounded-full overflow-hidden shadow-lg border-2 border-blue-400 glow-blue">
                   <img
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Jan%2022%2C%202026%2C%2012_21_21%20AM-WKqkdSRv1DtoghNmzkCDSdNQKXoMsG.png"
                     alt="Edusanna Logo"
@@ -42,7 +42,7 @@ export default function CoursesPage() {
                 </div>
                 <span className="text-2xl font-bold gradient-text">EDUSANNA</span>
               </Link>
-              <Link href="/" className="flex items-center space-x-1 text-blue-600 hover:text-blue-700 font-medium">
+              <Link href="/" className="flex items-center space-x-1 text-blue-300 hover:text-blue-200 font-medium transition">
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back</span>
               </Link>
@@ -73,12 +73,12 @@ export default function CoursesPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <div className="flex items-center gap-2 glass-card p-3 rounded-xl border-gray-200">
               <GraduationCap className="w-5 h-5 text-blue-600" />
-              <span className="font-semibold text-gray-700">Certificate: $12</span>
+              <span className="font-semibold text-gray-700">Certificate</span>
               <Badge className="bg-blue-100 text-blue-700">Foundation</Badge>
             </div>
             <div className="flex items-center gap-2 glass-card p-3 rounded-xl border-gray-200">
               <Award className="w-5 h-5 text-gray-700" />
-              <span className="font-semibold text-gray-700">Diploma: $18</span>
+              <span className="font-semibold text-gray-700">Diploma</span>
               <Badge className="bg-gray-100 text-gray-700">Advanced</Badge>
             </div>
           </div>
@@ -186,10 +186,6 @@ export default function CoursesPage() {
                         <GraduationCap className="w-5 h-5 text-blue-600" />
                         <span className="font-semibold text-gray-800">Certificate</span>
                       </div>
-                      <div className="flex items-center gap-1 text-blue-700 font-bold">
-                        <DollarSign className="w-4 h-4" />
-                        <span>12</span>
-                      </div>
                     </div>
                     <div className="flex items-center text-sm text-gray-600 mb-3">
                       <Clock className="w-4 h-4 mr-1" />
@@ -208,10 +204,6 @@ export default function CoursesPage() {
                       <div className="flex items-center gap-2">
                         <Award className="w-5 h-5 text-gray-700" />
                         <span className="font-semibold text-gray-800">Diploma</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-gray-700 font-bold">
-                        <DollarSign className="w-4 h-4" />
-                        <span>18</span>
                       </div>
                     </div>
                     <p className="text-xs text-gray-600 mb-2">{course.diplomaTitle}</p>
