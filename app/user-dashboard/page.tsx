@@ -93,7 +93,13 @@ export default function UserDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <Link href="/" className="flex items-center gap-2 hover:opacity-80">
-              <BookOpen className="w-6 h-6 text-blue-600" />
+              <div className="w-8 h-8 rounded-full overflow-hidden shadow-md border-2 border-blue-600">
+                <img
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Jan%2022%2C%202026%2C%2012_21_21%20AM-WKqkdSRv1DtoghNmzkCDSdNQKXoMsG.png"
+                  alt="Edusanna Logo"
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <span className="text-xl font-bold text-gray-900">Edusanna</span>
             </Link>
             <div className="flex gap-2">

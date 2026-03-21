@@ -69,7 +69,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
         completed: false,
       },
     ],
-    duration: "6 weeks",
+    duration: "Relatively Appealing",
     students: 1250,
     rating: 4.8,
   }
@@ -115,10 +115,14 @@ export default function CoursePage({ params }: { params: { id: string } }) {
               <Card className="glass-card mb-8">
                 <CardHeader>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center text-white">
-                        <BookOpen className="w-8 h-8" />
-                      </div>
+<div className="flex items-center space-x-4">
+                        <div className="w-16 h-16 rounded-full overflow-hidden shadow-lg border-2 border-blue-600">
+                          <img
+                            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Jan%2022%2C%202026%2C%2012_21_21%20AM-WKqkdSRv1DtoghNmzkCDSdNQKXoMsG.png"
+                            alt="Edusanna Logo"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
                       <div>
                         <CardTitle className="text-3xl gradient-text">{course.title}</CardTitle>
                         <div className="flex items-center space-x-4 text-gray-600 mt-2">
