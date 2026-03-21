@@ -66,17 +66,31 @@ export default function HomePage() {
         onClose={closePrompt}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-100 to-white">
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-slate-900 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-glow"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-glow" style={{ animationDelay: "1s" }}></div>
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-glow" style={{ animationDelay: "2s" }}></div>
+        </div>
+
+        {/* Particle effect overlay */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 right-20 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+          <div className="absolute top-40 right-40 w-1 h-1 bg-purple-300 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
+          <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-blue-300 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+          <div className="absolute bottom-20 right-1/3 w-1.5 h-1.5 bg-white rounded-full animate-pulse" style={{ animationDelay: "1.5s" }}></div>
+        </div>
         {/* Navigation */}
-        <nav className="glass-card fixed top-0 w-full z-50 border-b border-gray-200/50">
+        <nav className="glass-card fixed top-0 w-full z-50 border-b border-white/10 backdrop-blur-3xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
+            <div className="flex justify-between items-center h-20 relative z-10">
               <button
                 onClick={handleLogoTap}
-                className="flex items-center space-x-3 hover:opacity-90 transition"
+                className="flex items-center space-x-3 hover:opacity-90 transition transform hover:scale-105"
                 title="Edusanna - Elevate Your Mind"
               >
-                <div className="w-14 h-14 rounded-full overflow-hidden shadow-lg border-2 border-blue-600">
+                <div className="w-14 h-14 rounded-full overflow-hidden shadow-2xl border-2 border-blue-400 glow-blue">
                   <img
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Jan%2022%2C%202026%2C%2012_21_21%20AM-WKqkdSRv1DtoghNmzkCDSdNQKXoMsG.png"
                     alt="Edusanna Logo"
@@ -85,12 +99,12 @@ export default function HomePage() {
                 </div>
                 <div>
                   <span className="text-3xl font-bold gradient-text">EDUSANNA</span>
-                  <div className="text-xs text-blue-600 font-medium">Elevate Your Mind</div>
+                  <div className="text-xs text-blue-300 font-medium">Elevate Your Mind</div>
                 </div>
               </button>
               <div className="flex items-center space-x-4">
                 <Link href="/login">
-                  <Button variant="ghost" className="text-gray-700 hover:text-blue-600">
+                  <Button variant="ghost" className="text-white hover:text-blue-300 hover:bg-white/10">
                     Login
                   </Button>
                 </Link>
@@ -103,46 +117,51 @@ export default function HomePage() {
         </nav>
 
           {/* Hero Section */}
-        <section className="pt-35 pb-20 px-4 sm:px-6 lg:px-8">
+        <section className="pt-40 pb-24 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 text-sm font-semibold shadow-lg mb-8">
-              Free Learning - Certificate & Diploma Programs A-Z
+            <div className="inline-flex items-center px-6 py-3 rounded-full glass-card-dark text-blue-300 text-sm font-bold shadow-xl mb-8 border-blue-300/20">
+              ✨ Free Learning - Certificate & Diploma Programs A-Z
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance mt-12">
-              <span className="gradient-text">Learn Anything.</span>
+            <h1 className="text-5xl md:text-8xl font-black mb-8 text-balance mt-8 leading-tight">
+              <span className="gradient-text-alt">Learn Anything.</span>
               <br />
-              <span className="text-gray-800">Completely Free.</span>
+              <span className="text-white">Completely Free.</span>
             </h1>
 
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
               Create a free account and access all courses instantly. Learn at your own pace completely for free, track your progress and only pay when you're ready to receive an official, prestigious Certificate ($12) or Diploma ($18).
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
               <Link href="/courses">
-                <Button className="premium-button text-lg px-8 py-4">
+                <Button className="premium-button text-lg px-8 py-4 shadow-2xl">
                   <Play className="w-5 h-5 mr-2" />
                   Browse All Courses
                 </Button>
               </Link>
               <Link href="/verify">
                 <Button
-                  variant="outline"
-                  className="text-lg px-8 py-4 border-2 hover:bg-blue-50 bg-white border-gray-300"
+                  className="premium-button-outline text-lg px-8 py-3.5"
                 >
                   Verify Certificate
                 </Button>
               </Link>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+            {/* Stats with premium styling */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 mt-20">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold gradient-text mb-2">{stat.number}</div>
-                  <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div key={index} className="text-center group cursor-pointer">
+                  <div className="icon-badge-lg mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    {index === 0 && <span className="text-3xl">📚</span>}
+                    {index === 1 && <span className="text-3xl">🎓</span>}
+                    {index === 2 && <span className="text-3xl">💰</span>}
+                    {index === 3 && <span className="text-3xl">🎧</span>}
+                  </div>
+                  <div className="text-4xl md:text-5xl font-black gradient-text mb-2">{stat.number}</div>
+                  <div className="text-blue-200 font-semibold">{stat.label}</div>
                 </div>
               ))}
             </div>

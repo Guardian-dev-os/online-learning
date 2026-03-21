@@ -26,14 +26,14 @@ export default function CoursesPage() {
   })
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       {/* Navigation */}
-      <nav className="glass-card fixed top-0 w-full z-50 border-b border-gray-200/50">
+      <nav className="glass-card fixed top-0 w-full z-50 border-b border-blue-300/20 backdrop-blur-3xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-6">
-              <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition">
-                <div className="w-10 h-10 rounded-full overflow-hidden shadow-md">
+              <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition transform hover:scale-105">
+                <div className="w-10 h-10 rounded-full overflow-hidden shadow-lg border-2 border-blue-400 glow-blue">
                   <img
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Jan%2022%2C%202026%2C%2012_21_21%20AM-WKqkdSRv1DtoghNmzkCDSdNQKXoMsG.png"
                     alt="Edusanna Logo"
@@ -42,7 +42,7 @@ export default function CoursesPage() {
                 </div>
                 <span className="text-2xl font-bold gradient-text">EDUSANNA</span>
               </Link>
-              <Link href="/" className="flex items-center space-x-1 text-blue-600 hover:text-blue-700 font-medium">
+              <Link href="/" className="flex items-center space-x-1 text-blue-300 hover:text-blue-200 font-medium transition">
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back</span>
               </Link>
