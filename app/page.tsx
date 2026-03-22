@@ -66,50 +66,58 @@ export default function HomePage() {
         onClose={closePrompt}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-slate-900 relative overflow-hidden">
-        {/* Animated background elements */}
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 relative overflow-hidden">
+        {/* Light glow background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-glow"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-glow" style={{ animationDelay: "1s" }}></div>
-          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-glow" style={{ animationDelay: "2s" }}></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl animate-glow"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-glow" style={{ animationDelay: "1s" }}></div>
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-300/20 rounded-full blur-3xl animate-glow" style={{ animationDelay: "2s" }}></div>
+        </div>
+
+        {/* Light ray effect */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-40 left-1/2 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent blur-xl"></div>
+          <div className="absolute bottom-40 right-0 w-96 h-1 bg-gradient-to-l from-transparent via-blue-200 to-transparent blur-xl"></div>
         </div>
 
         {/* Particle effect overlay */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 right-20 w-2 h-2 bg-white rounded-full animate-pulse"></div>
-          <div className="absolute top-40 right-40 w-1 h-1 bg-purple-300 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
-          <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-blue-300 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
-          <div className="absolute bottom-20 right-1/3 w-1.5 h-1.5 bg-white rounded-full animate-pulse" style={{ animationDelay: "1.5s" }}></div>
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute top-20 right-20 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+          <div className="absolute top-40 right-40 w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
+          <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+          <div className="absolute bottom-20 right-1/3 w-1.5 h-1.5 bg-blue-300 rounded-full animate-pulse" style={{ animationDelay: "1.5s" }}></div>
+          <div className="absolute top-1/3 left-1/3 w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: "2s" }}></div>
         </div>
+
         {/* Navigation */}
-        <nav className="glass-card fixed top-0 w-full z-50 border-b border-white/10 backdrop-blur-3xl">
+        <nav className="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md border-b border-white/50 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-20 relative z-10">
+            <div className="flex justify-between items-center h-16 relative z-10">
               <button
                 onClick={handleLogoTap}
-                className="flex items-center space-x-3 hover:opacity-90 transition transform hover:scale-105"
+                className="flex items-center space-x-2 sm:space-x-3 hover:opacity-90 transition transform hover:scale-105 flex-shrink-0"
                 title="Edusanna - Elevate Your Mind"
               >
-                <div className="w-14 h-14 rounded-full overflow-hidden shadow-2xl border-2 border-blue-400 glow-blue">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden shadow-lg border-2 border-blue-600">
                   <img
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Jan%2022%2C%202026%2C%2012_21_21%20AM-WKqkdSRv1DtoghNmzkCDSdNQKXoMsG.png"
                     alt="Edusanna Logo"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div>
-                  <span className="text-3xl font-bold gradient-text">EDUSANNA</span>
-                  <div className="text-xs text-blue-300 font-medium">Elevate Your Mind</div>
+                <div className="hidden sm:block">
+                  <span className="text-lg sm:text-2xl font-bold text-blue-700">EDUSANNA</span>
+                  <div className="text-xs text-blue-600 font-medium">Elevate Your Mind</div>
                 </div>
               </button>
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
                 <Link href="/login">
-                  <Button variant="ghost" className="text-white hover:text-blue-300 hover:bg-white/10">
+                  <Button variant="ghost" className="text-blue-700 hover:text-blue-600 hover:bg-blue-50 text-sm sm:text-base">
                     Login
                   </Button>
                 </Link>
                 <Link href="/signup">
-                  <Button className="premium-button">Get Started</Button>
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all">Get Started</Button>
                 </Link>
               </div>
             </div>
@@ -117,51 +125,48 @@ export default function HomePage() {
         </nav>
 
           {/* Hero Section */}
-        <section className="pt-40 pb-24 px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-7xl mx-auto">
+        <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center">
-            <div className="inline-flex items-center px-6 py-3 rounded-full glass-card-dark text-blue-300 text-sm font-bold shadow-xl mb-8 border-blue-300/20">
-              ✨ Free Learning - Certificate & Diploma Programs A-Z
-            </div>
-
-            <h1 className="text-5xl md:text-8xl font-black mb-8 text-balance mt-8 leading-tight">
-              <span className="gradient-text-alt">Learn Anything.</span>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black mb-8 text-balance mt-4 leading-tight">
+              <span className="text-blue-700">Learn Anything.</span>
               <br />
-              <span className="text-white">Completely Free.</span>
+              <span className="text-slate-900">Completely Free.</span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+            <p className="text-lg sm:text-xl text-slate-700 mb-10 max-w-2xl mx-auto leading-relaxed">
               Create a free account and access all courses instantly. Learn at your own pace completely for free, track your progress and only pay when you're ready to receive an official, prestigious Certificate ($12) or Diploma ($18).
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
               <Link href="/courses">
-                <Button className="premium-button text-lg px-8 py-4 shadow-2xl">
-                  <Play className="w-5 h-5 mr-2" />
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-3.5 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all flex items-center gap-2">
+                  <Play className="w-5 h-5" />
                   Browse All Courses
                 </Button>
               </Link>
               <Link href="/verify">
                 <Button
-                  className="premium-button-outline text-lg px-8 py-3.5"
+                  variant="outline"
+                  className="border-2 border-slate-400 text-slate-700 hover:bg-slate-100 bg-white text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-3.5 rounded-lg font-semibold transition-all"
                 >
                   Verify Certificate
                 </Button>
               </Link>
             </div>
 
-            {/* Stats with premium styling */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 mt-20">
+            {/* Stats with circular badges */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-12 mt-16">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center group cursor-pointer">
-                  <div className="icon-badge-lg mx-auto mb-4 group-hover:scale-110 transition-transform">
-                    {index === 0 && <span className="text-3xl">📚</span>}
-                    {index === 1 && <span className="text-3xl">🎓</span>}
-                    {index === 2 && <span className="text-3xl">💰</span>}
-                    {index === 3 && <span className="text-3xl">🎧</span>}
+                <div key={index} className="text-center">
+                  <div className="mx-auto mb-3 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-blue-300 to-purple-300 border-4 border-white shadow-lg flex items-center justify-center text-4xl sm:text-5xl font-bold">
+                    {index === 0 && <span className="text-white">📚</span>}
+                    {index === 1 && <span className="text-white">🎓</span>}
+                    {index === 2 && <span className="text-white">💰</span>}
+                    {index === 3 && <span className="text-white">🎧</span>}
                   </div>
-                  <div className="text-4xl md:text-5xl font-black gradient-text mb-2">{stat.number}</div>
-                  <div className="text-blue-200 font-semibold">{stat.label}</div>
+                  <div className="text-2xl sm:text-3xl font-black text-blue-600 mb-1">{stat.number}</div>
+                  <div className="text-sm sm:text-base text-slate-700 font-semibold">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -301,25 +306,60 @@ export default function HomePage() {
         </div>
         </section>
 
-          {/* Footer */}
-        <footer className="bg-gradient-to-r from-blue-900 via-purple-900 to-indigo-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <div className="w-10 h-10 rounded-full overflow-hidden shadow-lg border-2 border-blue-400">
-                <img
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Jan%2022%2C%202026%2C%2012_21_21%20AM-WKqkdSRv1DtoghNmzkCDSdNQKXoMsG.png"
-                  alt="Edusanna Logo"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <span className="text-2xl font-bold">EDUSANNA</span>
+        {/* Footer */}
+        <footer className="bg-gradient-to-b from-blue-50 to-white border-t border-blue-200 py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="font-bold text-lg text-slate-900 mb-4">About Edusanna</h3>
+              <p className="text-sm text-slate-600">
+                Africa's premier online learning platform offering 70+ courses with certificate and diploma options.
+              </p>
             </div>
-            <div className="text-center md:text-right">
-              <p className="text-gray-300">© 2025 EDUSANNA. Transforming lives through education.</p>
+            <div>
+              <h3 className="font-bold text-lg text-slate-900 mb-4">For Students</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/courses" className="text-blue-600 hover:text-blue-700 transition font-medium">
+                    Browse Courses
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/user-guide" className="text-blue-600 hover:text-blue-700 transition font-medium">
+                    How to Get Started
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/verify" className="text-blue-600 hover:text-blue-700 transition font-medium">
+                    Verify Certificate
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg text-slate-900 mb-4">Resources</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/user-guide" className="text-blue-600 hover:text-blue-700 transition font-medium">
+                    Student Guide
+                  </Link>
+                </li>
+                <li>
+                  <a href="#faq" className="text-blue-600 hover:text-blue-700 transition font-medium">
+                    FAQ
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg text-slate-900 mb-4">Support</h3>
+              <p className="text-sm text-slate-600">Email: support@edusanna.com</p>
+              <p className="text-sm text-slate-600">Available 24/7</p>
+              <p className="text-xs text-slate-500 mt-2">Response time: &lt; 2 hours</p>
             </div>
           </div>
-        </div>
+          <div className="border-t border-blue-200 mt-8 pt-8 text-center text-sm text-slate-600">
+            <p>&copy; 2025 Edusanna. All rights reserved. | Empowering learners across Africa and beyond</p>
+          </div>
         </footer>
       </div>
     </>
