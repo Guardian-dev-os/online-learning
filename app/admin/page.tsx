@@ -64,95 +64,43 @@ export default function AdminPage() {
     pendingCompletions: 23,
   }
 
-  const completionNotifications = [
-    {
-      id: 1,
-      userName: "Samuel Mukonyo",
-      userEmail: "samuel.m@example.com",
-      country: "Zimbabwe",
-      city: "Harare",
-      course: "Web Development",
-      level: "diploma",
-      score: 94,
-      startDate: "2024-11-15",
-      finishDate: "2025-01-18",
-      whatsapp: "+263712345678",
-    },
-    {
-      id: 2,
-      userName: "Amara Okafor",
-      userEmail: "amara.ok@example.com",
-      country: "Nigeria",
-      city: "Lagos",
-      course: "Digital Marketing",
-      level: "certificate",
-      score: 88,
-      startDate: "2024-12-01",
-      finishDate: "2025-01-17",
-      whatsapp: "+2347012345678",
-    },
-    {
-      id: 3,
-      userName: "Njeri Kamau",
-      userEmail: "njeri.k@example.com",
-      country: "Kenya",
-      city: "Nairobi",
-      course: "Data Analysis",
-      level: "diploma",
-      score: 91,
-      startDate: "2024-10-20",
-      finishDate: "2025-01-16",
-      whatsapp: "+254712345678",
-    },
+  // Completion notifications - will be populated when students complete courses
+  const completionNotifications: any[] = [
+    // Sample structure for future completions:
+    // {
+    //   id: 1,
+    //   userName: "Student Name",
+    //   userEmail: "student@example.com",
+    //   country: "Country",
+    //   city: "City",
+    //   course: "Course Name",
+    //   level: "diploma",
+    //   score: 94,
+    //   startDate: "2024-11-15",
+    //   finishDate: "2025-01-18",
+    //   whatsapp: "+countrycode9digits",
+    // }
   ]
 
+  // Only admin user in the system - sample users removed
   const userManagement = [
     {
-      id: 1,
-      name: "Samuel Mukonyo",
-      email: "samuel.m@example.com",
-      country: "Zimbabwe",
-      role: "student",
-      enrollments: 5,
-      completions: 2,
-      joinDate: "2024-09-15",
+      id: "admin",
+      name: "Admin",
+      email: "admin@edusanna.com",
+      country: "Global",
+      role: "admin",
+      enrollments: 0,
+      completions: 0,
+      joinDate: "2025-01-01",
       status: "active",
       access: "full",
     },
-    {
-      id: 2,
-      name: "Amara Okafor",
-      email: "amara.ok@example.com",
-      country: "Nigeria",
-      role: "student",
-      enrollments: 3,
-      completions: 1,
-      joinDate: "2024-10-02",
-      status: "active",
-      access: "full",
-    },
+    // New users will appear here when they sign up
   ]
 
-  const feedbackAndRatings = [
-    {
-      id: 1,
-      userName: "Samuel M.",
-      course: "Web Development",
-      rating: 5,
-      feedback: "Excellent course, very comprehensive and well-structured. Instructors are knowledgeable.",
-      date: "2025-01-18",
-      status: "published",
-    },
-    {
-      id: 2,
-      userName: "Amara O.",
-      course: "Digital Marketing",
-      rating: 4,
-      feedback: "Great content but would benefit from more real-world case studies.",
-      date: "2025-01-17",
-      status: "published",
-    },
-  ]
+  // Feedback will appear here when students rate and review courses
+  const feedbackAndRatings: any[] = []
 
   const courseCatalog = [
     // A Courses
