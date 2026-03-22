@@ -47,7 +47,6 @@ export default function AdminPage() {
   const [showPricingEditor, setShowPricingEditor] = useState(false)
   const [inspectingUser, setInspectingUser] = useState<null | { id: string | number; name: string }>(null)
   const [showUserJourney, setShowUserJourney] = useState(false)
-  const [showSampleUserPreview, setShowSampleUserPreview] = useState(false)
 
   // Advanced Statistics
   const stats = {
@@ -64,43 +63,95 @@ export default function AdminPage() {
     pendingCompletions: 23,
   }
 
-  // Completion notifications - will be populated when students complete courses
-  const completionNotifications: any[] = [
-    // Sample structure for future completions:
-    // {
-    //   id: 1,
-    //   userName: "Student Name",
-    //   userEmail: "student@example.com",
-    //   country: "Country",
-    //   city: "City",
-    //   course: "Course Name",
-    //   level: "diploma",
-    //   score: 94,
-    //   startDate: "2024-11-15",
-    //   finishDate: "2025-01-18",
-    //   whatsapp: "+countrycode9digits",
-    // }
+  const completionNotifications = [
+    {
+      id: 1,
+      userName: "Samuel Mukonyo",
+      userEmail: "samuel.m@example.com",
+      country: "Zimbabwe",
+      city: "Harare",
+      course: "Web Development",
+      level: "diploma",
+      score: 94,
+      startDate: "2024-11-15",
+      finishDate: "2025-01-18",
+      whatsapp: "+263712345678",
+    },
+    {
+      id: 2,
+      userName: "Amara Okafor",
+      userEmail: "amara.ok@example.com",
+      country: "Nigeria",
+      city: "Lagos",
+      course: "Digital Marketing",
+      level: "certificate",
+      score: 88,
+      startDate: "2024-12-01",
+      finishDate: "2025-01-17",
+      whatsapp: "+2347012345678",
+    },
+    {
+      id: 3,
+      userName: "Njeri Kamau",
+      userEmail: "njeri.k@example.com",
+      country: "Kenya",
+      city: "Nairobi",
+      course: "Data Analysis",
+      level: "diploma",
+      score: 91,
+      startDate: "2024-10-20",
+      finishDate: "2025-01-16",
+      whatsapp: "+254712345678",
+    },
   ]
 
-  // Only admin user in the system - sample users removed
   const userManagement = [
     {
-      id: "admin",
-      name: "Admin",
-      email: "admin@edusanna.com",
-      country: "Global",
-      role: "admin",
-      enrollments: 0,
-      completions: 0,
-      joinDate: "2025-01-01",
+      id: 1,
+      name: "Samuel Mukonyo",
+      email: "samuel.m@example.com",
+      country: "Zimbabwe",
+      role: "student",
+      enrollments: 5,
+      completions: 2,
+      joinDate: "2024-09-15",
       status: "active",
       access: "full",
     },
-    // New users will appear here when they sign up
+    {
+      id: 2,
+      name: "Amara Okafor",
+      email: "amara.ok@example.com",
+      country: "Nigeria",
+      role: "student",
+      enrollments: 3,
+      completions: 1,
+      joinDate: "2024-10-02",
+      status: "active",
+      access: "full",
+    },
   ]
 
-  // Feedback will appear here when students rate and review courses
-  const feedbackAndRatings: any[] = []
+  const feedbackAndRatings = [
+    {
+      id: 1,
+      userName: "Samuel M.",
+      course: "Web Development",
+      rating: 5,
+      feedback: "Excellent course, very comprehensive and well-structured. Instructors are knowledgeable.",
+      date: "2025-01-18",
+      status: "published",
+    },
+    {
+      id: 2,
+      userName: "Amara O.",
+      course: "Digital Marketing",
+      rating: 4,
+      feedback: "Great content but would benefit from more real-world case studies.",
+      date: "2025-01-17",
+      status: "published",
+    },
+  ]
 
   const courseCatalog = [
     // A Courses
@@ -151,86 +202,6 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-      {/* Sample User Preview Modal */}
-      {showSampleUserPreview && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="glass-card w-full max-w-4xl p-8 border-purple-300/30 max-h-96 overflow-y-auto">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-white">👨‍🎓 Preview Student Experience</h2>
-              <button onClick={() => setShowSampleUserPreview(false)} className="text-blue-300 hover:text-blue-200 text-2xl">×</button>
-            </div>
-            <div className="space-y-6 text-white">
-              <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-                <h3 className="font-bold text-blue-300 mb-4">Student Dashboard View</h3>
-                <p className="text-sm text-blue-200 mb-4">This is what students see when they log in and access their dashboard:</p>
-                <div className="bg-white/5 rounded-lg p-4 mb-4 border border-white/10">
-                  <div className="text-blue-300 font-semibold mb-3">📚 My Enrollments</div>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Web Development (Certificate)</span>
-                      <span className="text-green-400">In Progress - 65%</span>
-                    </div>
-                    <div className="w-full bg-white/10 rounded-full h-2">
-                      <div className="bg-green-500 h-2 rounded-full w-2/3"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-                <h3 className="font-bold text-blue-300 mb-4">Learning Journey Stages</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-xs font-bold">✓</div>
-                    <span>1. Sign up and verify email</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-xs font-bold">✓</div>
-                    <span>2. Browse and select courses</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-xs font-bold">✓</div>
-                    <span>3. Choose Certificate or Diploma level</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-yellow-500 text-white flex items-center justify-center text-xs font-bold">4</div>
-                    <span>4. Start learning and complete modules</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full border-2 border-white/50 flex items-center justify-center text-xs font-bold">5</div>
-                    <span>5. Take final assessment</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full border-2 border-white/50 flex items-center justify-center text-xs font-bold">6</div>
-                    <span>6. Request Certificate/Diploma</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-                <h3 className="font-bold text-blue-300 mb-4">What Students Can Do</h3>
-                <ul className="text-sm space-y-2 text-blue-200">
-                  <li>✓ Browse 70+ courses across all categories</li>
-                  <li>✓ Choose between Certificate (5-6 modules) and Diploma (8-10 modules) levels</li>
-                  <li>✓ Track progress in real-time</li>
-                  <li>✓ Complete quizzes and assessments</li>
-                  <li>✓ Request and download certificates</li>
-                  <li>✓ Verify other users' certificates</li>
-                  <li>✓ Access 24/7 support</li>
-                </ul>
-              </div>
-
-              <div className="flex gap-3">
-                <Link href="/courses" className="flex-1">
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Try as Student</Button>
-                </Link>
-                <Button className="flex-1 bg-gray-600 hover:bg-gray-700" onClick={() => setShowSampleUserPreview(false)}>Close</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Admin Header - Premium Glass */}
       <div className="sticky top-0 z-40 glass-card border-b border-blue-200/20 backdrop-blur-3xl shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -435,14 +406,13 @@ export default function AdminPage() {
 
         {/* Main Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-6 lg:grid-cols-7 w-full mb-8 glass-card border-blue-300/20 overflow-x-auto">
+          <TabsList className="grid grid-cols-6 w-full mb-8 glass-card border-blue-300/20">
             <TabsTrigger value="overview" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">Overview</TabsTrigger>
             <TabsTrigger value="completions" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">Completions</TabsTrigger>
             <TabsTrigger value="users" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">Users</TabsTrigger>
             <TabsTrigger value="courses" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">Courses</TabsTrigger>
             <TabsTrigger value="feedback" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">Feedback</TabsTrigger>
-            <TabsTrigger value="inspection" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">🔍 Inspect</TabsTrigger>
-            <TabsTrigger value="powers" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">⚡ Powers</TabsTrigger>
+            <TabsTrigger value="inspection" className="data-[state=active]:bg-blue-600/30 data-[state=active]:text-blue-300">🔍 Inspection</TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
@@ -475,39 +445,28 @@ export default function AdminPage() {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-white font-bold mb-4">⚡ Quick Actions</h3>
-                    <div className="space-y-3">
-                      <Link href="/admin">
-                        <Button className="w-full justify-start bg-blue-600/30 hover:bg-blue-600/50 text-white border border-blue-400/30">
-                          <Settings className="w-4 h-4 mr-2" />
-                          Platform Settings
-                        </Button>
-                      </Link>
-                      <Button 
-                        className="w-full justify-start bg-purple-600/30 hover:bg-purple-600/50 text-white border border-purple-400/30"
-                      >
+                    <h3 className="font-semibold mb-4">Quick Actions</h3>
+                    <div className="space-y-2">
+                      <Button variant="outline" size="sm" className="w-full justify-start">
+                        <Settings className="w-4 h-4 mr-2" />
+                        Platform Settings
+                      </Button>
+                      <Button variant="outline" size="sm" className="w-full justify-start">
                         <Mail className="w-4 h-4 mr-2" />
                         Send Notifications
                       </Button>
-                      <Link href="/admin?tab=overview">
-                        <Button className="w-full justify-start bg-pink-600/30 hover:bg-pink-600/50 text-white border border-pink-400/30">
-                          <BarChart3 className="w-4 h-4 mr-2" />
-                          View Analytics
-                        </Button>
-                      </Link>
+                      <Button variant="outline" size="sm" className="w-full justify-start">
+                        <BarChart3 className="w-4 h-4 mr-2" />
+                        View Analytics
+                      </Button>
                       <Button 
-                        className="w-full justify-start bg-amber-600/30 hover:bg-amber-600/50 text-white border border-amber-400/30"
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full justify-start" 
                         onClick={() => setShowPricingEditor(true)}
                       >
                         <DollarSign className="w-4 h-4 mr-2" />
                         Edit Pricing
-                      </Button>
-                      <Button 
-                        className="w-full justify-start bg-green-600/30 hover:bg-green-600/50 text-white border border-green-400/30"
-                        onClick={() => setShowSampleUserPreview(true)}
-                      >
-                        <Eye className="w-4 h-4 mr-2" />
-                        Preview as Student
                       </Button>
                     </div>
                   </div>
@@ -812,249 +771,6 @@ export default function AdminPage() {
                         <p className="text-white font-semibold">6. Certification Stage</p>
                         <p className="text-blue-200 text-xs mt-1">Request cert → Verification → Issue certificate</p>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Admin Powers Tab */}
-          <TabsContent value="powers" className="space-y-6">
-            <Card className="glass-card-light border-purple-300/30">
-              <CardHeader>
-                <CardTitle className="text-white text-2xl">⚡ Advanced Admin Powers & Capabilities</CardTitle>
-                <p className="text-sm text-blue-300 mt-2">Top-tier administrative tools for complete platform control</p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  {/* Power Categories */}
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {/* User Management Powers */}
-                    <div className="bg-white/5 border border-blue-300/30 rounded-xl p-6">
-                      <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-                        <Users className="w-5 h-5 text-blue-400" />
-                        User Management Powers
-                      </h3>
-                      <ul className="space-y-3 text-sm text-blue-200">
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>View all user profiles, emails, locations, and metadata</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Edit or delete user accounts and enrollment records</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Reset user passwords and verify accounts manually</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Ban or suspend users from platform access</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Assign admin roles and manage permissions</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Export user data and analytics reports</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    {/* Course Management Powers */}
-                    <div className="bg-white/5 border border-purple-300/30 rounded-xl p-6">
-                      <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-                        <BookOpen className="w-5 h-5 text-purple-400" />
-                        Course Management Powers
-                      </h3>
-                      <ul className="space-y-3 text-sm text-purple-200">
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Create, edit, and publish new courses</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Set pricing for certificates and diplomas</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Manage course modules, quizzes, and assessments</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Archive or remove courses from catalog</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Track enrollment and completion metrics per course</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Update course content and learning objectives</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    {/* Certificate Powers */}
-                    <div className="bg-white/5 border border-amber-300/30 rounded-xl p-6">
-                      <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-                        <Award className="w-5 h-5 text-amber-400" />
-                        Certificate & Credential Powers
-                      </h3>
-                      <ul className="space-y-3 text-sm text-amber-200">
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Manually issue certificates and diplomas</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Revoke or expire credentials if needed</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Generate certificate verification codes</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>View all issued certificates with audit trail</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Customize certificate templates and branding</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Batch download certificate reports</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    {/* Analytics & Reporting */}
-                    <div className="bg-white/5 border border-pink-300/30 rounded-xl p-6">
-                      <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-                        <BarChart3 className="w-5 h-5 text-pink-400" />
-                        Analytics & Reporting Powers
-                      </h3>
-                      <ul className="space-y-3 text-sm text-pink-200">
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>View real-time analytics dashboard</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Generate custom reports and insights</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Track user engagement and learning trends</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Monitor system health and storage usage</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Export data in multiple formats (CSV, PDF, Excel)</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Set up automated report generation</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    {/* Content Moderation */}
-                    <div className="bg-white/5 border border-red-300/30 rounded-xl p-6">
-                      <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-                        <AlertCircle className="w-5 h-5 text-red-400" />
-                        Content Moderation Powers
-                      </h3>
-                      <ul className="space-y-3 text-sm text-red-200">
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Review and moderate user feedback and ratings</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Delete or hide inappropriate content</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Flag abusive users and content</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Monitor course discussions and comments</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Set up content filters and auto-moderation</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Generate moderation reports and audit logs</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    {/* Platform Settings & Configuration */}
-                    <div className="bg-white/5 border border-green-300/30 rounded-xl p-6">
-                      <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-                        <Settings className="w-5 h-5 text-green-400" />
-                        Platform Control Powers
-                      </h3>
-                      <ul className="space-y-3 text-sm text-green-200">
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Configure platform-wide settings</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Manage notification preferences and templates</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Set up email campaigns and bulk messages</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Monitor system performance and error logs</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Manage integrations and API keys</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">✓</span>
-                          <span>Schedule maintenance and system updates</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Quick Admin Actions */}
-                  <div className="bg-white/5 border border-white/10 rounded-xl p-6 mt-6">
-                    <h3 className="text-white font-bold mb-4">Quick Admin Actions</h3>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                      <Button className="bg-blue-600/30 hover:bg-blue-600/50 border border-blue-400/30 text-white">
-                        <Mail className="w-4 h-4 mr-2" />
-                        Send Mass Email
-                      </Button>
-                      <Button className="bg-purple-600/30 hover:bg-purple-600/50 border border-purple-400/30 text-white">
-                        <BarChart3 className="w-4 h-4 mr-2" />
-                        Export Analytics
-                      </Button>
-                      <Button className="bg-amber-600/30 hover:bg-amber-600/50 border border-amber-400/30 text-white">
-                        <DollarSign className="w-4 h-4 mr-2" />
-                        View Revenue
-                      </Button>
-                      <Button className="bg-red-600/30 hover:bg-red-600/50 border border-red-400/30 text-white">
-                        <AlertCircle className="w-4 h-4 mr-2" />
-                        System Alerts
-                      </Button>
                     </div>
                   </div>
                 </div>
