@@ -1,12 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { MotivationalPopup } from "@/components/motivational-popup"
+import { Loader2 } from "lucide-react"
+import { signOut } from "next-auth/react"
 import {
   BookOpen,
   LogOut,
@@ -25,7 +29,30 @@ import {
 } from "lucide-react"
 
 export default function DashboardPage() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState("overview")
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login")
+    }
+  }, [status, router])
+
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-blue-600" />
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!session?.user) {
+    return null
+  }
 
   // Mock user data
   const user = {
@@ -141,7 +168,11 @@ export default function DashboardPage() {
                   Browse Courses
                 </Button>
               </Link>
-              <Button variant="ghost" className="text-gray-700 hover:text-red-600">
+              <Button 
+                variant="ghost" 
+                className="text-gray-700 hover:text-red-600"
+                onClick={() => signOut({ callbackUrl: "/" })}
+              >
                 <LogOut className="w-4 h-4 mr-2" />
                 Logout
               </Button>

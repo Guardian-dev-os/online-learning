@@ -17,28 +17,43 @@ export default function LoginPage() {
     password: "",
   })
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setError("")
 
-    // Check for admin credentials
-    if (formData.email === "africanedusanna@gmail.com" && formData.password === "admin#1") {
-      localStorage.setItem("isAdmin", "true")
-      localStorage.setItem("adminEmail", formData.email)
-      window.location.href = "/admin"
-      return
+    try {
+      // Use NextAuth signIn for proper authentication
+      const response = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.error || "Authentication failed")
+        setIsLoading(false)
+        return
+      }
+
+      // Redirect based on user role
+      if (data.isAdmin) {
+        window.location.href = "/admin"
+      } else {
+        window.location.href = "/dashboard"
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.")
+      setIsLoading(false)
+      console.error("[v0] Login error:", err)
     }
-
-    // Store user session for regular users
-    localStorage.setItem("isLoggedIn", "true")
-    localStorage.setItem("userEmail", formData.email)
-
-    // Simulate API call for regular users
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-
-    // Redirect to dashboard
-    window.location.href = "/dashboard"
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,6 +92,11 @@ export default function LoginPage() {
             <CardTitle className="text-xl gradient-text">Sign In to Your Account</CardTitle>
           </CardHeader>
           <CardContent>
+            {error && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                {error}
+              </div>
+            )}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <Label htmlFor="email" className="flex items-center text-gray-700 mb-2">

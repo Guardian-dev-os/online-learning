@@ -22,16 +22,50 @@ export default function SignupPage() {
     city: "",
   })
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setError("")
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    // Validate passwords match
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match")
+      setIsLoading(false)
+      return
+    }
 
-    // Redirect to courses page
-    window.location.href = "/courses"
+    try {
+      // Register user via API endpoint
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          fullName: formData.fullName,
+          mobileNumber: formData.mobileNumber,
+          country: formData.country,
+          city: formData.city,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.error || "Registration failed")
+        setIsLoading(false)
+        return
+      }
+
+      // Redirect to dashboard after successful signup
+      window.location.href = "/dashboard"
+    } catch (err) {
+      setError("An error occurred. Please try again.")
+      setIsLoading(false)
+      console.error("[v0] Signup error:", err)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +104,11 @@ export default function SignupPage() {
             <CardTitle className="text-xl gradient-text">Get Started Today</CardTitle>
           </CardHeader>
           <CardContent>
+            {error && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                {error}
+              </div>
+            )}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <Label htmlFor="fullName" className="flex items-center text-gray-700 mb-2">

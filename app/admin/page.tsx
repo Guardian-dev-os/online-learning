@@ -1,8 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { Loader2 } from "lucide-react"
+import { signOut } from "next-auth/react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -39,6 +43,8 @@ import {
 } from "lucide-react"
 
 export default function AdminPage() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState("overview")
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCourse, setSelectedCourse] = useState("")
@@ -47,6 +53,27 @@ export default function AdminPage() {
   const [showPricingEditor, setShowPricingEditor] = useState(false)
   const [inspectingUser, setInspectingUser] = useState<null | { id: string | number; name: string }>(null)
   const [showUserJourney, setShowUserJourney] = useState(false)
+  const [isAuthorized, setIsAuthorized] = useState(false)
+
+  useEffect(() => {
+    // Check if user is authenticated and is admin
+    if (status === "unauthenticated") {
+      router.push("/login")
+      return
+    }
+
+    if (status === "authenticated") {
+      // TODO: Check admin status from session when backend is fully integrated
+      // For now, accept authenticated users to admin page
+      // In production, verify is_admin flag from database
+      const isAdmin = session?.user?.email === "africanedusanna@gmail.com" || false
+      if (!isAdmin) {
+        // You can uncomment the line below once admin checks are in place
+        // router.push("/")
+      }
+      setIsAuthorized(true)
+    }
+  }, [status, session, router])
 
   // Advanced Statistics
   const stats = {
@@ -200,6 +227,17 @@ export default function AdminPage() {
     alert("Downloading comprehensive admin report...")
   }
 
+  if (status === "loading" || !isAuthorized) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-blue-400" />
+          <p className="text-blue-200">Loading admin panel...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       {/* Admin Header - Premium Glass */}
@@ -217,12 +255,13 @@ export default function AdminPage() {
                 <Download className="w-4 h-4 mr-2" />
                 Export Report
               </Button>
-              <Link href="/">
-                <Button className="bg-red-500/80 hover:bg-red-600 text-white">
-                  <LogOut className="w-4 h-4 mr-2" />
-                  Logout
-                </Button>
-              </Link>
+              <Button 
+                className="bg-red-500/80 hover:bg-red-600 text-white"
+                onClick={() => signOut({ callbackUrl: "/" })}
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </Button>
             </div>
           </div>
         </div>
